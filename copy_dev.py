@@ -1,5 +1,8 @@
+#!/usr/bin/env python
+
 import os
 import shutil
+
 
 # Constants
 USERNAME = "replace-with-your-username"  # Change this to your username
