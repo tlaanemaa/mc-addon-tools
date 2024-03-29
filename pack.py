@@ -4,6 +4,11 @@ import os
 import shutil
 
 
+# Constants
+SCRIPT_DIRECTORY = os.path.dirname(__file__)
+ADDON_DIRECTORY = os.path.join(SCRIPT_DIRECTORY, "addon")
+
+
 def pack_addon():
     """
     This script creates a Minecraft addon (.mcaddon) file by zipping the contents of
@@ -19,31 +24,25 @@ def pack_addon():
     .mcaddon file will be placed in the same directory as this script.
     """
 
-    # Get the directory where the script resides
-    script_dir = os.path.dirname(os.path.abspath(__file__))
-
     # Define the name for the addon
-    addon_name = os.path.basename(script_dir)
-
-    # Define the path to the addon directory
-    addon_dir = os.path.join(script_dir, "addon")
+    addon_name = os.path.basename(SCRIPT_DIRECTORY)
 
     # Check if the "addon" directory exists
-    if not os.path.exists(addon_dir) or not os.path.isdir(addon_dir):
+    if not os.path.exists(ADDON_DIRECTORY) or not os.path.isdir(ADDON_DIRECTORY):
         raise FileNotFoundError(
             "The 'addon' directory does not exist or is not a directory."
         )
 
     # Define the filename for the addon
-    addon_filename = os.path.join(script_dir, addon_name + ".mcaddon")
+    addon_filename = os.path.join(SCRIPT_DIRECTORY, addon_name + ".mcaddon")
 
     # Check if the addon file already exists, and remove it if it does
     if os.path.exists(addon_filename):
         os.remove(addon_filename)
 
     # Create the .mcaddon file by zipping the contents of the "addon" directory
-    zip_filename = os.path.join(script_dir, addon_name)
-    shutil.make_archive(zip_filename, "zip", addon_dir)
+    zip_filename = os.path.join(SCRIPT_DIRECTORY, addon_name)
+    shutil.make_archive(zip_filename, "zip", ADDON_DIRECTORY)
 
     # Rename the zip file to have a .mcaddon extension
     os.rename(zip_filename + ".zip", addon_filename)
