@@ -37,6 +37,10 @@ def pack_addon():
     # Define the filename for the addon
     addon_filename = os.path.join(script_dir, addon_name + ".mcaddon")
 
+    # Check if the addon file already exists, and remove it if it does
+    if os.path.exists(addon_filename):
+        os.remove(addon_filename)
+
     # Create the .mcaddon file by zipping the contents of the "addon" directory
     zip_filename = os.path.join(script_dir, addon_name)
     shutil.make_archive(zip_filename, "zip", addon_dir)
